@@ -15,7 +15,7 @@ const QRProductCard = ({ product,isMobile }) => {
           borderTopRightRadius: "12px",
           width: isMobile ? "100%" : "185px",
           height: isMobile ? "120px" : "185px",
-          objectFit: "contain",
+          objectFit: "cover",
         }}
       />
       <Box borderRadius={"12px"} bgcolor={"white"} padding={"10px"}>
