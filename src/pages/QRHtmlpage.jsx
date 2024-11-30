@@ -75,22 +75,25 @@ const QRHtmlPage = () => {
     const vCardData = `
   BEGIN:VCARD
   VERSION:3.0
-  FN:${userData?.name}
-  ORG:${userData?.company_name}
-  TEL:${userData?.phone_numbers?.personal}
-  EMAIL:${userData?.email}
-  ADR:${userData?.address}
+  FN:${userData?.name || ""}
+  ORG:${userData?.company_name || ""}
+  TEL:${userData?.phone_numbers?.personal || ""}
+  EMAIL:${userData?.email || ""}
+  ADR:;;${userData?.address || ""}
   END:VCARD
-      `;
+    `;
 
-    const blob = new Blob([vCardData], { type: "text/vcard" });
+    const blob = new Blob([vCardData.trim()], {
+      type: "text/vcard;charset=utf-8",
+    });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `${userData?.name}.vcf`;
+    link.download = `${userData?.name || "contact"}.vcf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
+
   const renderSocialIcon = (platform) => {
     switch (platform) {
       case "instagram":
@@ -175,8 +178,13 @@ const QRHtmlPage = () => {
                       direction={"column"}
                       alignItems={isMobile && "center"}
                     >
-                      <Typography variant="h3" color="textTertiary" textTransform={"capitalize"}>
-                        {userData?.abbreviation}{""} {userData?.name}
+                      <Typography
+                        variant="h3"
+                        color="textTertiary"
+                        textTransform={"capitalize"}
+                      >
+                        {userData?.abbreviation}
+                        {""} {userData?.name}
                       </Typography>
 
                       {userData?.company_name && (
@@ -191,7 +199,6 @@ const QRHtmlPage = () => {
                             </Typography>
                             <Typography
                               variant="h6"
-                             
                               textAlign={isMobile && "center"}
                             >
                               {userData?.designation}
@@ -306,7 +313,8 @@ const QRHtmlPage = () => {
                   <Stack
                     display={isMobile ? "flex" : "none"}
                     justifyContent="center"
-                    alignItems="center" spacing={2}
+                    alignItems="center"
+                    spacing={2}
                     direction={"row"}
                     sx={{
                       position: "fixed",
@@ -318,34 +326,39 @@ const QRHtmlPage = () => {
                       padding: 2,
                       boxShadow: "0 -2px 10px rgba(0, 0, 0, 0.1)",
                     }}
-                  ><Stack >
-                    <StyledButton
-                      variant={"preview"}
-                      onClick={() => {
-                        const whatsappUrl = `https://wa.me/${userData?.phone_numbers?.whatsapp_number}`;
-                        window.open(
-                          whatsappUrl,
-                          "_blank",
-                          "noopener,noreferrer"
-                        );
-                      }}
-                      name={
-                        <>
-                          <AppWhatsappIcon style={{ marginRight: "8px" }} /> SAY
-                          HAI
-                        </>
-                      }
-                    /></Stack>
-                  <Stack >  <StyledButton
-                      variant={"primary"}
-                      name={
-                        <>
-                          <AppContactIcon style={{ marginRight: "8px" }} /> SAVE
-                          CONTACT
-                        </>
-                      }
-                      onClick={handleSaveContact}
-                    /></Stack>
+                  >
+                    <Stack>
+                      <StyledButton
+                        variant={"preview"}
+                        onClick={() => {
+                          const whatsappUrl = `https://wa.me/${userData?.phone_numbers?.whatsapp_number}`;
+                          window.open(
+                            whatsappUrl,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
+                        }}
+                        name={
+                          <>
+                            <AppWhatsappIcon style={{ marginRight: "8px" }} />{" "}
+                            SAY HAI
+                          </>
+                        }
+                      />
+                    </Stack>
+                    <Stack>
+                      {" "}
+                      <StyledButton
+                        variant={"primary"}
+                        name={
+                          <>
+                            <AppContactIcon style={{ marginRight: "8px" }} />{" "}
+                            SAVE CONTACT
+                          </>
+                        }
+                        onClick={handleSaveContact}
+                      />
+                    </Stack>
                   </Stack>
                   {isMobile &&
                     userData?.reviews &&
