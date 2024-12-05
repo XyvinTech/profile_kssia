@@ -177,6 +177,7 @@ const QRHtmlPage = () => {
                     <Stack
                       direction={"column"}
                       alignItems={isMobile && "center"}
+                      mt={2}
                     >
                       <Typography
                         variant="h3"
@@ -190,11 +191,17 @@ const QRHtmlPage = () => {
                       {userData?.company_name && (
                         <Stack
                           direction={"row"}
-                          alignItems={"center"}
+                          display={"flex"}
+                          alignItems={isMobile ? "center" : "flex-start"}
                           spacing={1}
+                          mt={2}
                         >
                           <Stack>
-                            <Typography variant="h6" fontWeight={600}>
+                            <Typography
+                              variant="h6"
+                              fontWeight={600}
+                              textAlign={isMobile && "center"}
+                            >
                               {userData?.company_name}
                             </Typography>
                             <Typography
@@ -491,7 +498,7 @@ const QRHtmlPage = () => {
                       <Grid container spacing={3}>
                         {" "}
                         {userData?.websites?.map((website, index) => (
-                          <Grid item xs={12} sm={6} key={index}>
+                          <Grid item xs={12} sm={12} key={index}>
                             {" "}
                             <Box
                               display="flex"
@@ -500,7 +507,6 @@ const QRHtmlPage = () => {
                               bgcolor={isMobile ? "#fff" : "#F4F9FF"}
                               borderRadius={"12px"}
                               p={2}
-                              mb={2}
                             >
                               <Stack>
                                 <AppWebsiteIcon />{" "}
