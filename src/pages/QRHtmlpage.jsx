@@ -150,11 +150,12 @@ const QRHtmlPage = () => {
                     justifyContent={isMobile ? "center" : "start"}
                     alignItems={isMobile ? "center" : "flex-start"}
                     bgcolor={!isMobile && "#fff"}
+                    
                     sx={
                       isMobile
                         ? {
                             backgroundImage: `url(${bg})`,
-                            backgroundSize: "contain",
+                            backgroundSize: "cover",
                             backgroundPosition: "center",
                           }
                         : {}
@@ -194,7 +195,7 @@ const QRHtmlPage = () => {
                           display={"flex"}
                           alignItems={isMobile ? "center" : "flex-start"}
                           spacing={1}
-                          mt={2}
+                          // mt={2}
                         >
                           <Stack>
                             <Typography
@@ -215,7 +216,7 @@ const QRHtmlPage = () => {
                       )}
                       {!isMobile && (
                         <Stack spacing={2} mt={2}>
-                          <Typography variant="h7" color="#626262" mb={1}>
+                          <Typography variant="h6" color="#626262" mb={1}>
                             {userData?.bio}
                           </Typography>
 
@@ -272,7 +273,7 @@ const QRHtmlPage = () => {
                       width={"93px"}
                       height={"25px"}
                     />
-                    <Typography color={"#6D6D6D"} variant="h7">
+                    <Typography color={"#6D6D6D"} variant="h6">
                       Member ID-{" "}
                       <span style={{ color: "black" }}>
                         {userData?.membership_id}
@@ -285,7 +286,7 @@ const QRHtmlPage = () => {
                         {" "}
                         <AppPhoneIcon />{" "}
                       </Stack>
-                      <Typography variant="h7">
+                      <Typography variant="h6">
                         {userData?.phone_numbers?.personal}
                       </Typography>
                     </Stack>
@@ -293,7 +294,7 @@ const QRHtmlPage = () => {
                       <Stack>
                         <AppEmailIcon />{" "}
                       </Stack>
-                      <Typography variant="h7">{userData?.email}</Typography>
+                      <Typography variant="h6">{userData?.email}</Typography>
                     </Stack>
                     {userData?.address && (
                       <Stack direction="row" alignItems="center" spacing={1}>
@@ -301,7 +302,7 @@ const QRHtmlPage = () => {
                           {" "}
                           <AppLocationIcon />{" "}
                         </Stack>
-                        <Typography variant="h7">
+                        <Typography variant="h6">
                           {userData?.address}
                         </Typography>
                       </Stack>
@@ -311,7 +312,7 @@ const QRHtmlPage = () => {
                     <>
                       <AppBioIcon />
                       <Stack>
-                        <Typography variant="h7" color="#626262" mt={1} mb={1}>
+                        <Typography variant="h6" color="#626262" mt={1} mb={1}>
                           {userData?.bio}
                         </Typography>
                       </Stack>
