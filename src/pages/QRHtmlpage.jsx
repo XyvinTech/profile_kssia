@@ -149,7 +149,6 @@ END:VCARD`;
                     justifyContent={isMobile ? "center" : "start"}
                     alignItems={isMobile ? "center" : "flex-start"}
                     bgcolor={!isMobile && "#fff"}
-                    
                     sx={
                       isMobile
                         ? {
@@ -518,7 +517,11 @@ END:VCARD`;
                                 ml={1}
                               >
                                 <a
-                                  href={website?.url}
+                                  href={
+                                    website?.url?.startsWith("http")
+                                      ? website.url
+                                      : `http://${website.url}`
+                                  }
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   style={{
