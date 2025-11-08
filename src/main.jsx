@@ -10,7 +10,6 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
       <RouterProvider router={router} />
     </ThemeProvider>
   </StrictMode>
