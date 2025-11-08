@@ -72,26 +72,25 @@ const QRHtmlPage = () => {
     fetchData();
   }, []);
   const handleSaveContact = () => {
-    const vCardData = `
-  BEGIN:VCARD
-  VERSION:3.0
-  FN:${userData?.name || ""}
-  ORG:${userData?.company_name || ""}
-  TEL:${userData?.phone_numbers?.personal || ""}
-  EMAIL:${userData?.email || ""}
-  ADR:;;${userData?.address || ""}
-  END:VCARD
-    `;
+    const vCardContent = `BEGIN:VCARD
+VERSION:3.0
+N:${userData?.name}
+FN:${userData?.name}
+ORG:${userData?.company_name}
+TEL;TYPE=CELL:${userData?.phone_numbers?.personal}
+EMAIL:${userData?.email}
+END:VCARD`;
 
-    const blob = new Blob([vCardData.trim()], {
-      type: "text/vcard;charset=utf-8",
-    });
+    const blob = new Blob([vCardContent], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${userData?.name || "contact"}.vcf`;
+    link.href = url;
+    link.download = `${userData?.name}.vcf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const renderSocialIcon = (platform) => {
@@ -150,7 +149,6 @@ const QRHtmlPage = () => {
                     justifyContent={isMobile ? "center" : "start"}
                     alignItems={isMobile ? "center" : "flex-start"}
                     bgcolor={!isMobile && "#fff"}
-                    
                     sx={
                       isMobile
                         ? {
@@ -519,7 +517,11 @@ const QRHtmlPage = () => {
                                 ml={1}
                               >
                                 <a
-                                  href={website?.url}
+                                  href={
+                                    website?.url?.startsWith("http")
+                                      ? website.url
+                                      : `http://${website.url}`
+                                  }
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   style={{
